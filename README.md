@@ -6,7 +6,7 @@ Tramway HATEAOS Formatter is a request formatter that can be used with the Tramw
 
 # Installation:
 1. `npm install --save tramway-formatter-hateaos`
-2. Requires `tramway-core-router` to be already installed.
+2. Requires `tramway-core-router` version 3.3.0+ to be already installed.
 
 # Getting Started
 
@@ -28,6 +28,8 @@ export default {
 ```
 
 Add the `HATEAOSEntityFactory` or `PaginatedHATEAOSEntityFactory` to `src/config/services/factories.js`
+
+> Note, the `PaginatedHATEAOSEntityFactory` may not yield expected results at this time because it will require adding pagination support to tramway-core-connection.
 
 ```javascript
 import { HATEAOSEntityFactory, PaginatedHATEAOSEntityFactory } from 'tramway-formatter-hateaos';

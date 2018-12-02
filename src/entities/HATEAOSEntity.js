@@ -3,6 +3,10 @@ import {Entity} from 'tramway-core-connection';
 export default class HATEAOSEntity extends Entity {
     _links = {};
 
+    getId() {
+        return this.id;
+    }
+
     addLink(label, href) {
         this._links[label] = {href};
         return this;
@@ -35,6 +39,8 @@ export default class HATEAOSEntity extends Entity {
             this[key] = entity[key];
         }
 
+        this.id = entity.getId();
+
         return this;
     }
 
@@ -50,8 +56,14 @@ export default class HATEAOSEntity extends Entity {
         return entity;
     }
 
-    generateLinks(urlGenerator, req) {
-        this.addLink("self", urlGenerator.generateCurrent(req));
+    generateLinks(urlGenerator, req, appendId = false) {
+        let link = urlGenerator.generateCurrent(req);
+
+        if (appendId) {
+            link += `/${this.getId()}`;
+        }
+
+        this.addLink("self", link);
         return this;
     }
 }
