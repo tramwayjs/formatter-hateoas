@@ -1,6 +1,4 @@
-import {Collection} from 'tramway-core-connection';
-
-export default class HATEAOSCollection extends Collection {
+export default class HATEAOSCollection {
     _embedded = {};
     _links = {};
 
@@ -46,6 +44,11 @@ export default class HATEAOSCollection extends Collection {
 
     generateLinks(urlGenerator, req) {
         this.addLink("self", urlGenerator.generateCurrent(req));
+
+        for (let resource in this._embedded) {
+            this._embedded[resource] = this._embedded[resource].map(item => item.generateLinks(urlGenerator, req, true))
+        }
+
         return this;
     }
 }
