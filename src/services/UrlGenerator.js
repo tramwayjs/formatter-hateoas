@@ -11,6 +11,20 @@ export default class UrlGenerator {
         return `${protocol}://${host}${path}`
     }
 
+    generateAppended(req, path) {
+        return `${this.generateCurrent(req)}/${path}`;
+    }
+
+    generateTemplated(req, path, args = {}) {
+        let base = this.generateUrl(req, path);
+
+        for (let arg in args) {
+            base = base.replace(`:${arg}`, args[arg]);
+        }
+
+        return base;
+    }
+
     generateNext(req) {
         const {path, query = {}} = req;
         let {page = 0} = query;
