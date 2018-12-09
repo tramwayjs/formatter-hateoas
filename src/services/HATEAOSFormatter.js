@@ -30,10 +30,21 @@ export default class HATEAOSFormatter extends ResponseFormatter {
      * 
      * @param {Response} response 
      * @param {Object} content 
+     * @param {Object} options
      */
-    send(response, content) {
+    send(response, content, options = {}) {
         const {req} = response;
         content.generateLinks(this.urlGenerator, req);
+
+        let {links = []} = options;
+
+        links = Array.isArray(links) ? links : Object.values(links);
+        
+        if (links.length) {
+            links.forEach(({link, label, formatted = false}) => {
+                content.addLink(label, formatted ? link : this.urlGenerator.generateAppended(req, link));
+            });
+        }
 
         let format = this.mimeTypeResolver.format(response, content);
 
