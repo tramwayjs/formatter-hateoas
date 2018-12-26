@@ -1,3 +1,5 @@
+import {Collection} from 'tramway-core-connection';
+
 export default class HATEAOSCollection {
     _embedded = {};
     _links = {};
@@ -12,7 +14,13 @@ export default class HATEAOSCollection {
     }
 
     getCollection(resource) {
-        return this._embedded[resource];
+        let collection = new Collection();
+        
+        this._embedded[resource].forEach(item => {
+            collection.add(item);
+        });
+        
+        return collection;
     }
 
     addLink(label, href) {
