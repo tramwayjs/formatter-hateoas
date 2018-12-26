@@ -45,7 +45,12 @@ export default class HATEAOSEntity extends Entity {
     }
 
     getEntity() {
-        let entity = new Entity();
+        let entity = new class extends Entity{
+            getId() {
+                return this.id;
+            }
+        }();
+
         for (let key in this) {
             if ('_links' === key || 'function' === typeof this[key] || this[key] instanceof Function) {
                 continue;
