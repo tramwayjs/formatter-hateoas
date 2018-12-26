@@ -61,6 +61,27 @@ export default {
 };
 ```
 
+If you intend to use the library to process responses from APIs using HATEAOS format, add the Provider decorator to your `src/config/services/providers.js`:
+
+```javascript
+import {providers} from 'tramway-formatter-hateaos';
+const {HATEAOSAPIProvider} = providers;
+
+export default {
+    "provider.hateaos": {
+        "class": HATEAOSAPIProvider,
+        "constructor": [
+            {"type": "service", "key": "provider.api"},
+            {"type": "service", "key": "factory.hateaos"},
+            {"type": "parameter", "key": "api_resource"},
+        ],
+        "functions": []
+    }
+}
+```
+
+Then in the repository where you'd normally use `provider.api`, use `provider.hateaos` instead. Note that this requires you set up the `tramway-connection-rest-api` and set up the provider for it as indicated by `provider.api`. The `api_resource` parameter is a string with the name of the key under the `_embedded` object of the response.
+
 # Usage
 
 In a `RestfulController` that has access to the Formatter you can:
@@ -82,6 +103,8 @@ To send a response with the formatted item.
 ```javascript
 this.formatter.send(res, formattedItem, options);
 ```
+
+In an API context, you can process REST API responses that use HATEAOS by using the included `HATEAOSAPIProvider` decorator on the `APIProvider`. This will automatically convert all HATEAOS responses from the host API to the standard `Collection`s and `Entity`s that are expected from the `Provider`.
 
 ## Adding additional links
 The `HATEAOSFormatter` will automatically generate entities and collections with their respective self and paginated properties. However, more complex APIs will have additional links for other resources and sub-resources.
