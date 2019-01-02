@@ -129,9 +129,13 @@ export default class HATEAOSAPIProvider extends Provider {
     createCollection(hateaosCollection) {
         let collection = new Collection();
 
-        hateaosCollection.getCollection(this.resource).forEach(item => {
-            collection.add(item.getEntity());
-        })
+        let items = hateaosCollection.getCollection(this.resource);
+
+        if (items instanceof Collection) {
+            items.forEach(item => {
+                collection.add(item.getEntity());
+            });
+        }
 
         return collection;
     }
