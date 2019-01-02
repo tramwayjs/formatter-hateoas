@@ -15,6 +15,10 @@ export default class HATEAOSCollection extends HATEOASItem {
 
     getCollection(resource) {
         let collection = new Collection();
+
+        if (!this._embedded[resource]) {
+            return collection;
+        }
         
         this._embedded[resource].forEach(item => {
             collection.add(item);
