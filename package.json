@@ -1,6 +1,6 @@
 {
   "name": "tramway-formatter-hateaos",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A HATEAOS response formatter for the Tramway framework",
   "author": "Julian Wolfe",
   "license": "MIT",
