@@ -156,7 +156,47 @@ This routing config will produce the following result when called `GET http://lo
 }
 ```
 
-Gives:
+In addition, additional resources can be embedded in the response by means of using the `setEmbedded` method on any `HATEOASItem` or by passing the corresponding object as an option to the `HATEAOSFormatter`'s `send` method.
+
+The following code snippet will generate the following output for `GET http://localhost/resource/1`.
+
+```javascript
+hateaosFormatter.send(res, hateaosFormatter.formatEntity(item), {
+    links: [
+        {"label": "subresources", "link": "subresources", "formatted": false},
+        {"label": "custom", "link": "http://localhost/resource/1/custom/5", "formatted": true}
+    ],
+    embedded: {
+        "resource2": {
+            id: 1
+        }
+    }
+})
+```
+
+Will produce:
+
+```json
+{
+    "id": 1,
+    "_links": {
+        "self": {
+            "href": "http://localhost/resource/1"
+        },
+        "subresources": {
+            "href": "http://localhost/resource/1/subresources"
+        },
+        "custom": {
+            "href": "http://localhost/resource/1/custom/5"
+        }
+    },
+    "_embedded": {
+        "resource2": {
+            "id": 1,
+        }
+    }
+}
+```
 
 # Advanced Configuration
 

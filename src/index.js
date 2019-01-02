@@ -10,6 +10,7 @@ import {
     MimeTypeResolver,
     UrlGenerator,
 } from './services';
+import HATEOASItem from './HATEOASItem';
 
 export default HATEAOSFormatter;
 
@@ -18,6 +19,7 @@ export {
     PaginatedHATEAOSEntityFactory,
     MimeTypeResolver,
     UrlGenerator,
+    HATEOASItem,
     collections,
     entities,
     providers,
