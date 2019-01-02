@@ -1,37 +1,9 @@
 import {Entity} from 'tramway-core-connection';
+import HATEOASItem from '../HATEOASItem';
 
-export default class HATEAOSEntity extends Entity {
-    _links = {};
-
+export default class HATEAOSEntity extends HATEOASItem {
     getId() {
         return this.id;
-    }
-
-    addLink(label, href) {
-        this._links[label] = {href};
-        return this;
-    }
-
-    getLinks() {
-        return this._links;
-    }
-
-    getLinksHeader() {
-        let links = {};
-
-        for (let label in this._links) {
-            links[label] = this._links[label].href;
-        }
-        
-        return links;
-    }
-
-    getLink(label) {
-        if (!(label in this._links)) {
-            return null;
-        }
-
-        return this._links[label].href;
     }
 
     setEntity(entity) {
@@ -45,7 +17,7 @@ export default class HATEAOSEntity extends Entity {
     }
 
     getEntity() {
-        let entity = new class extends Entity{
+        let entity = new class extends Entity {
             getId() {
                 return this.id;
             }
