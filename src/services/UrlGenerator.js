@@ -1,7 +1,9 @@
+import Url from 'url';
+
 export default class UrlGenerator {
     generateCurrent(req) {
         const {url} = req;
-        return this.generateUrl(req, url);
+        return this.generateUrl(req, Url.parse(url).pathname);
     }
 
     generateUrl(req, path = '') {
