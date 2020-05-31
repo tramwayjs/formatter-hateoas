@@ -1,6 +1,7 @@
 import * as collections from './collections';
 import * as entities from './entities';
 import * as providers from './providers';
+import { services } from './config';
 import {
     HATEAOSEntityFactory,
     PaginatedHATEAOSEntityFactory,
@@ -20,6 +21,7 @@ export {
     MimeTypeResolver,
     UrlGenerator,
     HATEOASItem,
+    services,
     collections,
     entities,
     providers,

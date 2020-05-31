@@ -1,6 +1,6 @@
 {
   "name": "tramway-formatter-hateaos",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "A HATEAOS response formatter for the Tramway framework",
   "author": "Julian Wolfe",
   "license": "MIT",
@@ -18,12 +18,12 @@
     "test": "npm run compile && mocha tests"
   },
   "devDependencies": {
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-es2015-node6": "^0.4.0",
-    "mocha": "^3.2.0",
-    "tramway": "^0.4.2",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "mocha": "^7.2.0",
+    "tramway": "^0.5.1",
     "tramway-core-testsuite": "^1.2.0"
   },
   "dependencies": {

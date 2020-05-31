@@ -1,4 +1,5 @@
 import Url from 'url';
+import querystring from 'querystring';
 
 export default class UrlGenerator {
     generateCurrent(req) {
@@ -27,17 +28,26 @@ export default class UrlGenerator {
         return base;
     }
 
-    generateNext(req) {
-        const {path, query = {}} = req;
-        let {page = 0} = query;
+    generatePage(req, {limit, page, pages}) {
+        const {path} = req;
         let url = this.generateUrl(req, path);
-        return `${url}?page=${++page}`;
+        const qs = querystring.stringify({page, limit});
+        return `${url}?${qs}`;
     }
 
-    generatePrevious(req) {
-        const {path, query = {}} = req;
-        let {page = 2} = query;
-        let url = this.generateUrl(req, path);
-        return `${url}?page=${--page}`;
+    generateFirst(req, {limit, page, pages}) {
+        return this.generatePage(req, {limit, page: 1, pages});
+    }
+
+    generateLast(req, {limit, page, pages}) {
+        return this.generatePage(req, {limit, page: pages, pages});
+    }
+
+    generateNext(req, {limit, page = 0, pages}) {
+        return this.generatePage(req, {limit, page: ++page, pages});
+    }
+
+    generatePrevious(req, {limit, page = 2, pages}) {
+        return this.generatePage(req, {limit, page: --page, pages});
     }
 }

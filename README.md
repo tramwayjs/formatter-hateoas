@@ -12,36 +12,17 @@ Tramway HATEAOS Formatter is a request formatter that can be used with the Tramw
 
 With dependency injection you can add the following entries to your services config files.
 
-Add the `HATEAOSFormatter` to `src/config/services/services.js`
+Add the libbrary service declarations to `src/config/services/index.js`
 
 ```javascript
-import HATEAOSFormatter from 'tramway-formatter-hateaos';
+import { services as hateoas } from 'tramway-formatter-hateaos';
 
 export default {
-    "service.formatter": {
-        "class": HATEAOSFormatter,
-        "constructor": [
-            {"type": "service", "key": "factory.hateaos"}
-        ]
-    }
-};
+    ...hateoas,
+}
 ```
 
-Add the `HATEAOSEntityFactory` or `PaginatedHATEAOSEntityFactory` to `src/config/services/factories.js`
-
-> Note, the `PaginatedHATEAOSEntityFactory` may not yield expected results at this time because it will require adding pagination support to tramway-core-connection.
-
-```javascript
-import { HATEAOSEntityFactory, PaginatedHATEAOSEntityFactory } from 'tramway-formatter-hateaos';
-
-export default {
-    "factory.hateaos": {
-        "class": HATEAOSEntityFactory,
-    },
-};
-```
-
-Finally, ensure your `RestfulController` in `src/config/services/controllers.js`
+Then, add the service declaration for your `RestfulController` in `src/config/services/controllers.js`
 
 ```javascript
 import {
@@ -54,12 +35,14 @@ export default {
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "service", "key": "service.sample"},
-            {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "hateoas.service.formatter"},
         ],
         "functions": []
     },
 };
 ```
+
+For paginated formatter, use `hateoas.service.formatter:paginated` instead of `hateoas.service.formatter`.
 
 If you intend to use the library to process responses from APIs using HATEAOS format, add the Provider decorator to your `src/config/services/providers.js`:
 
